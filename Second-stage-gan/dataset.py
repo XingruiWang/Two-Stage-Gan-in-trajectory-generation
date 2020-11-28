@@ -13,7 +13,7 @@ from collections import Counter
 
 class GuiderDataset(Dataset):
 
-    def __init__(self, dir_path, test_size, max_len, min_len=20, target_inter=0.8):
+    def __init__(self, dir_path, test_size, max_len, min_len=30, target_inter=0.8):
         self.dir = dir_path
         self.max_len = max_len # use to padding all sequence to a fixed length
         self.min_len = min_len # use to delete sequence with too many points
@@ -22,8 +22,6 @@ class GuiderDataset(Dataset):
         self.seq_dir = os.path.join(self.dir,'seq/')
         self.pic_name = []
         self.data = [] # use to store all seq
-        self.train_data = []
-        self.test_data = []
         self.trans = torchvision.transforms.ToTensor()
 
         for image in os.listdir(self.pic_dir):
@@ -34,7 +32,7 @@ class GuiderDataset(Dataset):
         # 1. normalize all coordinate according to the first element(x,y,w,h) in each npy file
         # 2. append the image file name to each coordinate sequence
         # 3. concate all sequence in npy file into one
-        for k, image_name in enumerate(self.pic_name):
+        for image_name in self.pic_name:
             data = np.load(os.path.join(self.seq_dir,image_name+'.npy'),allow_pickle=True)
             anchor = data[0]
             x,y = anchor[0]
@@ -49,8 +47,7 @@ class GuiderDataset(Dataset):
                 if intervals_avg(seq) > 1:
                     continue
                 if seq[-1] == [2,2] or seq[0] == [2,2]:
-                    continue
-                    seq = seq[:-1] # !!! 暂不考虑, 直接删掉终止点，作为一个断掉的轨迹
+                    seq = seq[:-1] # !!! 暂不考虑
                 for i in range(len(seq)):
                     if isinstance(seq[i],tuple):
                         seq[i] = list(seq[i])
@@ -67,14 +64,9 @@ class GuiderDataset(Dataset):
                     seq[i][0] = 2 * seq[i][0] - 1
                     seq[i][1] = 2 * seq[i][1] - 1
                 seq.append(image_name) # append cooresponding map image name to each sequence
-                if k < 20:
-                    self.test_data.append(seq)
-                else:
-                    self.train_data.append(seq)
-                
-                #self.data.append(seq) # seq is a list of list
+                self.data.append(seq) # seq is a list of list
 
-        #self.train_data, self.test_data = train_test_split(self.data, test_size=test_size,random_state=0)
+        self.train_data, self.test_data = train_test_split(self.data, test_size=test_size,random_state=0)
         print("="*50)
         print("Data Preprocess Done!")
         print("Dataset size:{}, train:{}, val:{}".
@@ -91,36 +83,32 @@ class GuiderDataset(Dataset):
         trans = transforms.Compose(
             [transforms.Resize((512,512)),
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])])
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
+            ])
         image_name = seq[-1]
         seq = seq[:-1]
         image_path = os.path.join(self.pic_dir,image_name+'.png')
         image = Image.open(image_path)
         tensor = trans(image) # (C,W,H)
-
+        #tensor = torch.zeros([3, 512, 512],dtype=torch.float)
         enter_point = torch.tensor(seq[0],dtype=torch.float) # dim = 2
-        esc_point = torch.tensor(seq[-1],dtype=torch.float) # dim = 2
+        esc_d = torch.tensor(cal_direction(seq[-1]),dtype=torch.float) # dim = 4 for 4 direction
 
         # <----- data preprocess ------->
-        # pay attetion! seq_inv differs in the following two situation
-        if seq_len <= self.max_len:
-            seq_inv = seq[::-1]
+        if seq_len < self.max_len:
             seq += [[0., 0.] for _ in range(self.max_len - seq_len)]
-            seq_inv += [[0., 0.] for _ in range(self.max_len - seq_len)]
-            seq_inv = torch.tensor(seq_inv, dtype=torch.float)
         elif seq_len > self.max_len:
             # systematically sample a subset for long sequence
             dis = int(seq_len / self.max_len)
             ind = [dis*i for i in range(self.max_len)]
             seq = [seq[i] for i in ind]
-            seq_inv = torch.tensor(seq[::-1], dtype=torch.float) # (max_len,2) inverse orde
             seq_len = self.max_len # be careful!
         # <----------------------------->
 
         seq = torch.tensor(seq ,dtype=torch.float) # (max_len, 2)
         seq_len = torch.tensor(seq_len,dtype=torch.long).unsqueeze(0)
 
-        return {'name':image_name, 'image':tensor, 'seq':seq, 'seq_inv':seq_inv, 'enter':enter_point, 'esc':esc_point, 'len':seq_len}
+        return {'name':image_name, 'image':tensor, 'seq':seq, 'enter':enter_point, 'esc':esc_d, 'len':seq_len}
 
     def train_set(self):
         '''call this method to switch to train mode'''
@@ -130,7 +118,33 @@ class GuiderDataset(Dataset):
     def test_set(self):
         '''call this method to switch to test mode'''
         self.data = self.test_data
-        return copy.deepcopy(self) 
+        return copy.deepcopy(self)
+
+def cal_direction(point):
+    '''
+    give out the closest direction of the sequnce final point
+    :param: point should be a list
+    :output: direction dim = 4
+        x+y   | x-y | direction
+        +     | +   | 3  right
+        +     | -   | 2  up
+        -     | +   | 0  below
+        -     | -   | 1  left
+    '''
+    a = point[0] + point[1]
+    b = point[0] - point[1]
+
+    if a > 0 and b > 0:
+        di = 3
+    elif a > 0 and b <= 0:
+        di = 2
+    elif a <= 0 and b > 0:
+        di = 0
+    else:
+        di = 1
+    direction = [0,0,0,0]
+    direction[di] = 1
+    return direction
 
 def intervals_avg(seq):
     '''used to calculate the average intervals of a certain sequence'''
