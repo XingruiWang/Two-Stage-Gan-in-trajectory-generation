@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<title>CanvasLayer</title>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=oUIxRthbPtTpavHg7ckBZwOCKoIDcbtU"></script>
+<style type="text/css">
+body, html,#container{width: 100%;height: 100%;overflow:hidden;margin:0;font-family:"Î¢ÈíÑÅºÚ";}
+</style>
+<style type="text/css">
+    #label
+    {
+        float:left;
+        position:fixed;
+        bottom:60px;x
+        left:5px;
+        font-family:"yahei";
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>
+<script type="text/javascript">
+    var mp = new BMap.Map("container");
+    var start_lon = -8.63;//116.318417;
+    var start_lat = 41.145;//39.984702;
+    var zoom_level = 18;
+    var dt = 3000;//间隔时间设定，ms为单位
+    var d = 0.003;
+    mp.centerAndZoom(new BMap.Point(start_lon,start_lat), zoom_level);
+    mp.enableScrollWheelZoom();
+    for(let i = 0;i < 15;i ++){
+        for( let j = 0; j <= 9; j ++){
+            setTimeout(function(){
+                mp.panTo(new BMap.Point(start_lon+i * d,start_lat+j * d));
+                console.log(i,j,dt * ( i * 10 + j ) );
+            }, dt * ( i * 10 + j ));
+        }
+    }
+
+
+
+
+</script>
