@@ -18,6 +18,9 @@ We evaluate the synthetic trajectories in terms of their similarity to real data
 | LSTM | 0.633 | **0.058** | 0.140|
 | TSG | **0.100** | 0.139 | **0.136**|
 
+### Installation
+
+
 
 
 
