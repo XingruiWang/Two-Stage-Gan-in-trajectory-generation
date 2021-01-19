@@ -34,6 +34,7 @@ parser.add_argument('--netD', default='', help="path to netD (to continue traini
 parser.add_argument('--outf', default='./output', help='folder to output images and model checkpoints')
 parser.add_argument('--manualSeed', type=int, help='manual seed')
 parser.add_argument('--start_iter',type = int, default = 0)
+
 opt = parser.parse_args()
 print(opt)
 if opt.netG !='' and opt.start_iter ==0:
