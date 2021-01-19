@@ -16,9 +16,6 @@ import torchvision.utils as vutils
 from tqdm import tqdm
 from tensorboardX import SummaryWriter
 parser = argparse.ArgumentParser()
-'''
-parser.add_argument('--dataset', required=True, help='| lsun | imagenet | folder | lfw | fake')
-'''
 parser.add_argument('--dataroot', required=True, help='path to dataset')
 parser.add_argument('--labelroot', required=True, help='path to label')
 parser.add_argument('--workers', type=int, help='number of data loading workers', default=4)
