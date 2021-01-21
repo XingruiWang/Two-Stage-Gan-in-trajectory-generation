@@ -2,7 +2,7 @@
 
 Python impletement of paper Large Scale GPS Trajectory Generation Using Map based on Two-stage-GAN
 
-<img src = "https://github.com/XingruiWang/Two-Stage-Gan-in-trajectory-generation/blob/main/Figure/pipeline.png?raw=1" style="width: 90%;"/>
+<img src = "https://github.com/XingruiWang/Two-Stage-Gan-in-trajectory-generation/blob/main/Figure/pipeline.png?raw=1" style="width: 50%;"/>
 
 ### Introduction
 
