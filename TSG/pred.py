@@ -119,12 +119,6 @@ def predict(decoder, encoder, img, enter, esc):
             predictions_ord[:, t + 1, :] = preds # (b,max_len,2)
             predictions_inv[:, max_len-2-t,:] = preds_inv
 
-    ## weight scheme 1
-    #first_part = [1]*int(max_len/2)
-    #second_part = [0]*(max_len - int(max_len/2))
-    #weights = np.array(first_part + second_part)
-    #weights_inv = np.array(second_part + first_part)
-
     ## weight scheme 2
     weights = np.array([_ for _ in range(max_len)])
     weights = np.exp(-weights)
