@@ -28,9 +28,9 @@ We evaluate the synthetic trajectories in terms of their similarity to real data
 
 #### Prepare the data
 
-1. Transform trajectory data to grids format `pre_process/process_trajectory_data/to_grid.py` 
+1. Transform trajectory data into grids format `pre_process/process_trajectory_data/to_grid.py` 
 
-2. Prepare the corresponding map images 
+2. Prepare the corresponding map images: 
 
    - go to `pre_process/map_generation/`
 
