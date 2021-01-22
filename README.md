@@ -24,9 +24,27 @@ We evaluate the synthetic trajectories in terms of their similarity to real data
 
 <img src = "https://github.com/XingruiWang/Two-Stage-Gan-in-trajectory-generation/blob/main/Figure/road_match.png?raw=1"/>
 
-### Installation
+### Train
 
+#### First stage GAN
 
+1. go to `First_stage_gan/`
+
+2. run 
+
+```sh
+python WGANGP.py \
+--dataroot ./grid32/ \
+--labelroot ./traj_all_0115.txt \
+--outf ./output \
+--batchSize 64 \
+--n_critic 1 \
+--netG ./output_IN/netG_epoch_320.pth \
+--netD ./output_IN/netD_epoch_320.pth \
+--cuda \
+--start_iter 320 \
+--niter 350
+```
 
 
 
