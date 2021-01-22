@@ -26,6 +26,10 @@ We evaluate the synthetic trajectories in terms of their similarity to real data
 
 ### Train
 
+#### Dataset
+
+Trajectory data in Porto, [available on Kaggle](https://www.kaggle.com/c/pkdd-15-predict-taxi-service-trajectory-i)
+
 #### Prepare the data
 
 1. Transform trajectory data into grids format `pre_process/process_trajectory_data/to_grid.py` 
