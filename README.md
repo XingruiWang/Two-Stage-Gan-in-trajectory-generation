@@ -28,9 +28,9 @@ We evaluate the synthetic trajectories in terms of their similarity to real data
 
 #### First stage GAN
 
-1. go to `First_stage_gan/`
+1. go to `First_stage_gan/`.
 
-2. run 
+2. run: 
 
 ```sh
 python WGANGP.py \
@@ -45,6 +45,12 @@ python WGANGP.py \
 --start_iter 320 \
 --niter 350
 ```
+
+#### Second stage GAN
+
+1. go to `First_stage_gan`.
+
+2. run `python train.py`.
 
 
 
