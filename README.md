@@ -66,7 +66,20 @@ python WGANGP.py \
 
 2. run `python train.py`.
 
+### Generate trajectory data
 
+1. Coarse result generated from First stage GAN
+
+```sh
+cd First_stage_gan
+python generate_fake_data.py --large_num 200 --model_path ./output_IN/netG_epoch_260.pth --output_path ../output_generated_coarse
+```
+
+2. Final result `TSG/pred.py`
+   Configuration
+   - `step_1_output` path to the result of first stage GAN
+   - `map_dir` path to the map data
+   - `checkpoint` model result of second stage GAN
 
 
 
