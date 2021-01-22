@@ -76,7 +76,9 @@ python generate_fake_data.py --large_num 200 --model_path ./output_IN/netG_epoch
 ```
 
 2. Final result `TSG/pred.py`
-   Configuration
+
+   **Configurations**
+   
    - `step_1_output` path to the result of first stage GAN
    - `map_dir` path to the map data
    - `checkpoint` model result of second stage GAN
