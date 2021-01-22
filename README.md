@@ -12,15 +12,17 @@ we propose a map-based Two-Stage GAN method (TSG) to generate fine-grained and p
 
 We evaluate the synthetic trajectories in terms of their similarity to real data, i.e., distribution of overall GPS coordinate, distribution of trajectory sequences length, distribution of trajectory distance, top-N visited places and road networks matching accuracy. And we compare our result with the previous benchmark.
 
+**JS distance of distribution**
+
 | Model | $p_o(r)$ | $p_s(l)$ | $p_d(l) |
 | ---- | ---- | ---- | ---- |
 | FTS-IP | 0.413 | 0.182| 0.187|
 | LSTM | 0.633 | **0.058** | 0.140|
 | TSG | **0.100** | 0.139 | **0.136**|
 
-| ![gt](gt.png) | ![our](our.png) | ![fts](fts.png) | ![lstm](lstm.png)|
-| ------------- | :-------------: | :-------------: | :--------------: |
-| (a) Ground truth|  (b) Ours     |         (c) FTS |(d)          LSTM |
+**Visualization of road network matching**
+
+<img src = "https://github.com/XingruiWang/Two-Stage-Gan-in-trajectory-generation/blob/main/Figure/road_match.png?raw=1"/>
 
 ### Installation
 
