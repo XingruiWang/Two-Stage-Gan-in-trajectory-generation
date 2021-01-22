@@ -26,6 +26,20 @@ We evaluate the synthetic trajectories in terms of their similarity to real data
 
 ### Train
 
+### Prepare the data
+
+1. Transform trajectory data to grids format `pre_process/process_trajectory_data/to_grid.py` 
+
+2. Prepare the corresponding map images 
+
+   - go to `pre_process/map_generation/`
+
+   - run `screen_shot.py`
+   
+   - run `cut.py`
+   
+   - run `merge.py`
+
 #### First stage GAN
 
 1. go to `First_stage_gan/`.
@@ -48,7 +62,7 @@ python WGANGP.py \
 
 #### Second stage GAN
 
-1. go to `First_stage_gan`.
+1. go to `Second_stage_gan`.
 
 2. run `python train.py`.
 
