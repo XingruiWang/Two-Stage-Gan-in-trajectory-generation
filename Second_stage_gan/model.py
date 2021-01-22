@@ -448,3 +448,5 @@ class Discriminator(nn.Module):
         out = self.discriminator(input)
         out = out.view(input.size(0), -1)
         return out, x_vis
+
+    
