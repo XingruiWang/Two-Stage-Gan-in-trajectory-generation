@@ -87,5 +87,3 @@ python generate_fake_data.py --large_num 200 --model_path ./output_IN/netG_epoch
    - `map_dir` path to the map data
    - `checkpoint` model result of second stage GAN
 
-
-
