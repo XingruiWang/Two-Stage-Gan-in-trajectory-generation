@@ -14,7 +14,7 @@ We evaluate the synthetic trajectories in terms of their similarity to real data
 
 **JS distance of distribution**
 
-| Model | $p_o(r)$ | $p_s(l)$ | $p_d(l) |
+| Model | $p_o(r)$ | $p_s(l)$ | $p_d(l)$ |
 | ---- | ---- | ---- | ---- |
 | FTS-IP | 0.413 | 0.182| 0.187|
 | LSTM | 0.633 | **0.058** | 0.140|
