@@ -1,6 +1,6 @@
 # Large Scale GPS Trajectory Generation Using Map based on Two-stage-GAN
 
-Python impletement of paper Large Scale GPS Trajectory Generation Using Map based on Two-stage-GAN
+Python impletement of paper Large Scale GPS Trajectory Generation Using Map based on Two-stage-GAN ([Link](https://jds-online.org/journal/JDS/article/108/info))
 
 ### Introduction
 
@@ -87,3 +87,17 @@ python generate_fake_data.py --large_num 200 --model_path ./output_IN/netG_epoch
    - `map_dir` path to the map data
    - `checkpoint` model result of second stage GAN
 
+```
+@article{wang2021,
+    author = {Xingrui Wang and Xinyu Liu and Ziteng Lu and Hanfang Yang},
+    title = {Large Scale GPS Trajectory Generation Using Map Based on Two Stage GAN},
+    journal = {Journal of Data Science},
+    volume = {19},
+    number = {1},
+    year = {2021},
+    pages = {126-141},
+    doi = {10.6339/21-JDS1004},
+    issn = {1680-743X},
+    publisher = {School of Statistics, Renmin University of China}
+}
+```
