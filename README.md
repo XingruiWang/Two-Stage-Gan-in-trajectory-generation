@@ -1,6 +1,6 @@
 # Large Scale GPS Trajectory Generation Using Map based on Two-stage-GAN
 
-Python impletement of paper *Large Scale GPS Trajectory Generation Using Map based on Two-stage-GAN* ([Link](https://jds-online.org/journal/JDS/article/108/info))
+Python impletement of paper ***Large Scale GPS Trajectory Generation Using Map based on Two-stage-GAN*** ([Link](https://jds-online.org/journal/JDS/article/108/info))
 
 ### Introduction
 
