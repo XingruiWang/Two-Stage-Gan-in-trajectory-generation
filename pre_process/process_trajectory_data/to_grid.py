@@ -53,12 +53,12 @@ def to_grid(traj, min_lon, min_lat, d=0.01, is_num=False):
     return (traj_mat_1, traj_mat_2)
 
 
-def main():
-    tj = np.load('./data/9.npy', allow_pickle=True)
-    m1, m2 = to_grid(tj, -8.62, 41.13, 10, True)
-    print(m1)
-    print(m2)
-
- 
-if __name__ == '__main__':
-    main()
+```
+# example 
+tj = np.load('./data/9.npy', allow_pickle=True)
+m1, m2 = to_grid(tj, -8.62, 41.13, 10, True)
+# m1: the first channel of the trajectory map
+# m2: the second channel of the trajectory map
+# the samilar processing methods as Ouyang et al. (2018)
+# (Ouyang K, Shokri R, Rosenblum DS, Yang W (2018). A non-parametric generative model for human trajectories. In: International Joint Conferences on Artificial Intelligence, (J Lang, eds.), 3812–3817)
+``` 
